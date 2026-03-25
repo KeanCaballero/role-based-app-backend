@@ -1,0 +1,62 @@
+/* Page visibility */
+.page {
+  display: none;
+}
+.page.active {
+  display: block;
+}
+
+/* auth-based nav visibility */
+body.not-authenticated .role-logged-in {
+  display: none;
+}
+body.authenticated .role-logged-out {
+  display: none;
+}
+
+/* admin-only links */
+.role-admin {
+  display: none;
+}
+body.is-admin .role-admin {
+  display: block;
+}
+
+/* simple modal for requests AND reset password */
+.modal-backdrop-custom {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+}
+
+.modal-custom {
+  background: #fff;
+  border-radius: 0.3rem;
+  padding: 0;
+  width: 500px;
+  max-width: 95vw;
+}
+
+.modal-custom .modal-header,
+.modal-custom .modal-footer {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.modal-custom .modal-footer {
+  border-top: 1px solid #dee2e6;
+  border-bottom: none;
+}
+
+.modal-custom .modal-body {
+  padding: 1rem;
+}
+
+/* hide utility */
+.d-none {
+  display: none !important;
+}

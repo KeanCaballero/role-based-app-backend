@@ -1,23 +1,20 @@
-async function login(username, password) {
-  try {
-    const response = await fetch('http://localhost:3000/api/login', {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json' 
-      },
-      body: JSON.stringify({ username, password })
-    });
 
-    const data = await response.json();
+function getAuthHeader() {
+  const token = sessionStorage.getItem('authToken');
+  return token ? { 'Authorization': `Bearer ${token}` } : {};
+}
 
-    if (response.ok) {
-      // Save token in sessionStorage (persists on page refresh)
-      sessionStorage.setItem('authToken', data.token);
-      showDashboard(data.user); // Your existing function
-    } else {
-      alert('Login failed: ' + data.error);
-    }
-  } catch (err) {
-    alert('Network error');
+/**
+ * Example: fetch the admin dashboard (will 403 if user is not admin).
+ */
+async function loadAdminDashboard() {
+  const res = await fetch('http://localhost:3000/api/admin/dashboard', {
+    headers: getAuthHeader()
+  });
+  if (res.ok) {
+    const data = await res.json();
+    console.log(data.message); // "Welcome to the admin dashboard!"
+  } else {
+    console.warn('Access denied!');
   }
 }
